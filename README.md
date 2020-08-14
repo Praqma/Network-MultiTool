@@ -23,6 +23,7 @@ This is a multitool for container/network testing and troubleshooting. It was or
 * postgresql client
 * jq
 * git
+* kafkacat
 
 
 **Note:** The SSL certificates are generated for 'localhost', are self signed, and placed in `/certs/` directory. During your testing, ignore the certificate warning/error. While using curl, you can use `-k` to ignore SSL certificate warnings/errors.
