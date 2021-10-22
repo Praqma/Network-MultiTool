@@ -14,11 +14,17 @@ EXPOSE 1180 11443
 
 # Install some tools in the container and generate self-signed SSL certificates.
 # Packages are listed in alphabetical order, for ease of readability and ease of maintenance.
+# Some executable files need setuid bit set for them to remain useful on openshift.
+#   Otherwise the tools become unusable.
+
 RUN     apk update \
     &&  apk add apache2-utils bash bind-tools busybox-extras curl ethtool git \
                 iperf3 iproute2 iputils jq lftp mtr mysql-client \
                 netcat-openbsd net-tools nginx nmap nmap-scripts openssh-client openssl \
-                perl-net-telnet postgresql-client procps rsync socat tcpdump tshark wget \
+                perl-net-telnet postgresql-client procps rsync socat tcpdump \
+                tcptraceroute tshark wget \
+    &&  chmod u+s /sbin/apk /bin/busybox  /usr/sbin/arping /usr/bin/nmap \
+          /usr/bin/tcpdump /usr/bin/tcptraceroute /sbin/mii-tool /usr/bin/tshark \
     &&  addgroup nginx wireshark \
     &&  mkdir  /certs  /docker /usr/share/nginx/html \
     &&  openssl req \
