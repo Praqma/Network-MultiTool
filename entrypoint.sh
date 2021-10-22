@@ -23,14 +23,14 @@ if ! whoami &> /dev/null; then
   USER_SHELL=/sbin/nologin
 
   echo
-  echo "The container is running as UID: ${USER_UID}"
-  echo "The container is running as USER_NAME: ${USER_NAME}"
+  echo "The container is running as USER_NAME: ${USER_NAME} , and UID: ${USER_UID}"
   echo
    
   if [ -w /etc/passwd ]; then
     # RUNTIME_USER_NAME is set in Dockerfile.
     #   If it is not defined there, then simply set it to the word 'default'.
-    echo "${USER_NAME}:x:${USER_UID}:0:${USER_NAME} user:${USER_HOME}:${USER_SHELL}" >> /etc/passwd
+    echo "Adding ${USER_NAME} and ${USER_UID} to /etc/passwd ..."
+    echo "${USER_NAME}:x:${USER_UID}:0:${USER_NAME} user:${USER_HOME}:${USER_SHELL}" | tee -a /etc/passwd
   fi
 
   # wireshark stuff:  
@@ -53,6 +53,8 @@ fi
 
 # Custom/user-provided ports:
 # --------------------------
+# * This git branch caters for openshift requirements,
+#     so nginx.conf has 1180 and 11443 setup as "listen ports".
 # * If the env variables HTTP_PORT and HTTPS_PORT are defined, then
 #     modify/Replace default listening ports 1180 and 11443 to whatever the user wants.
 # * If these variables are not defined, then the default ports 1180 and 11443 are used.
