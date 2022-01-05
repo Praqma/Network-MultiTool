@@ -23,6 +23,9 @@ RUN     apk update \
 
 COPY index.html /usr/share/nginx/html/
 
+COPY press-release.md /root/
+COPY press-release.html /root/
+
 
 # Copy a custom/simple nginx.conf which contains directives
 #   to redirected access_log and error_log to stdout and stderr.
