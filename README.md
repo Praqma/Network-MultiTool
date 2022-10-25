@@ -146,7 +146,7 @@ $ kubectl exec -it pod-name /bin/bash
 
 Or:
 ```
-kubectl run network-multitool --image=praqma/network-multitool -it --restart=Never -- /bin/bash
+kubectl run --rm network-multitool --image=praqma/network-multitool -it --restart=Never -- /bin/bash
 ```
 
 **Note:** You can pass additional parameter `--namespace=<your-desired-namespace>` to the above kubectl commands.
